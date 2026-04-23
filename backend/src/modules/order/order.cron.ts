@@ -1,5 +1,5 @@
 import cron from "node-cron";
-import { Order, OrderStatus, PaymentStatus } from "./order.model";
+import { Order, OrderStatus, PaymentStatus } from "../../models/order.model";
 
 cron.schedule("* * * * *", async () => {
 

@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { UserRole } from "../modules/user/user.model";
+import { UserRole } from "../models/user.model";
 
 export interface AuthRequest extends Request {
     user?: {

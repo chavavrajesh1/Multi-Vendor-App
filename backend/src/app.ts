@@ -4,23 +4,23 @@ import path from "node:path";
 
 import authRoutes from "./modules/auth/auth.routes";
 import adminRoutes from "./modules/admin/admin.routes";
-import restaurantRoutes from "./modules/restaurant/restaurant.routes";
+import restaurantRoutes from "./routes/restaurant.routes";
 import orderRoutes from "./modules/order/order.routes";
 import productRoutes from "./modules/product/product.routes";
-import vendorProductRoutes from "./modules/vendor/vendor.routes";
+import vendorProductRoutes from "./routes/vendor.routes";
 import paymentRoutes from "./modules/payment/payment.routes";
-import { paymentWebhookHandler } from "./modules/payment/payment.controller";
+import { paymentWebhookHandler } from "./controllers/payment.controller";
 import { errorHandler } from "./middlewares/error.middleware";
-import checkoutRoutes from "./modules/checkout/checkout.routes";
+import checkoutRoutes from "./routes/checkout.routes";
 import orderTrackingRoutes from "./modules/orderTracking/orderTracking.routes";
-import couponRoutes from "./modules/coupon/coupon.routes";
-import reviewRoutes from "./modules/review/review.routes";
-import notificationRoutes from "./modules/notification/notification.routes";
-import deliveryRoutes from "./modules/delivery/delivery.routes";
-import searchRoutes from "./modules/search/search.routes";
-import categoryRoutes from "./modules/category/category.routes";
-import menuRoutes from "./modules/menu/menu.routes";
-import cartRoutes from "./modules/cart/cart.routes";
+import couponRoutes from "./routes/coupon.routes";
+import reviewRoutes from "./routes/review.routes";
+import notificationRoutes from "./routes/notification.routes";
+import deliveryRoutes from "./routes/delivery.routes";
+import searchRoutes from "./routes/search.routes";
+import categoryRoutes from "./routes/category.routes";
+import menuRoutes from "./routes/menu.routes";
+import cartRoutes from "./routes/cart.routes";
 
 const app: Application = express();
 
