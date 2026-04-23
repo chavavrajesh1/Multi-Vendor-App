@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Hide scrollbar but keep scrolling working */
+
+/* ::-webkit-scrollbar {
+    display: none;
+} */
+
+body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+@keyframes marquee {
+    0%{
+        transform: translateX(100%);
+    }
+    100%{
+        transform: translateX(-100%);
+    }
+}
+
+.animate-marquee {
+    display: inline-block;
+    animation: marquee 15s linear infinite;
+}
