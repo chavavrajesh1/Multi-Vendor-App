@@ -36,7 +36,7 @@ const userSchema = new Schema<IUser>(
         },
         isApproved: {
             type: Boolean,
-            default: false, // Vendor needs admin approval
+            default: false, // Vendor needs admin approval 
         },
     },
     { timestamps: true }

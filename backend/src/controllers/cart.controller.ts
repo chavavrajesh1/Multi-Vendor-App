@@ -1,5 +1,5 @@
 import { NextFunction, Response } from "express";
-import { CartService } from "./cart.service";
+import { CartService } from "../services/cart.service";
 import { Types } from "mongoose";
 
 const cartService = new CartService();

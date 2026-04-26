@@ -1,16 +1,17 @@
 import { Router } from "express";
-import { authMiddleware } from "../../middlewares/auth.middleware";
-import { roleMiddleware } from "../../middlewares/role.middleware";
-import { validate } from "../../middlewares/validate.middleware";
-import { createOrderSchema } from "./order.validation";
-import { orderLimiter } from "../../middlewares/rateLimiter.middleware";
+import { authMiddleware } from "../middlewares/auth.middleware";
+import { roleMiddleware } from "../middlewares/role.middleware";
+import { createOrderSchema } from "../validations/order.validation";
 
 import {
   createOrder,
   getCustomerOrders,
   getOrderByIdController,
   updateOrderStatus
-} from "../../controllers/order.controller";
+} from "../controllers/order.controller";
+
+import { orderLimiter } from "../middlewares/rateLimiter.middleware";
+import { validate } from "../middlewares/validate.middleware";
 
 const router = Router();
 

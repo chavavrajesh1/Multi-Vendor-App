@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { applyCoupon, createCoupon, deleteCoupon, getCoupons } from "./coupon.controller";
+import { createCoupon, getCoupons, applyCoupon, deleteCoupon } from "../controllers/coupon.controller";
 
 const router = Router();
 

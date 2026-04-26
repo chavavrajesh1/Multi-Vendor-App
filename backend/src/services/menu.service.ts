@@ -1,5 +1,5 @@
-import { AppError } from "../../utils/AppError";
-import { MenuRepository } from "./menu.repository";
+import { MenuRepository } from "../repositories/menu.repository";
+import { AppError } from "../utils/AppError";
 
 
 export class MenuService {

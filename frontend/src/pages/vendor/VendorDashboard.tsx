@@ -58,7 +58,7 @@ const VendorDashboard = () => {
     // ఇక్కడ 'YOUR_PC_IP' బదులు మీ కంప్యూటర్ IP అడ్రస్ ఇవ్వండి
   // లేదా లైవ్ లో ఉన్నప్పుడు ఆటోమేటిక్ గా window.location.origin పనిచేస్తుంది
   const domain = window.location.hostname === "localhost" 
-    ? "http://10.136.167.136:5173" // మీ IP ఇక్కడ ఇవ్వండి
+    ? "http://localhost:5173" // మీ IP ఇక్కడ ఇవ్వండి
     : window.location.origin;
 
     const link = `${domain}/delivery-update/${orderId}`;

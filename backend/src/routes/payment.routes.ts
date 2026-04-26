@@ -1,11 +1,6 @@
 import { Router } from "express";
-import {
-  paymentWebhookHandler,
-  verifyPayment,
-  createPaymentOrder
-} from "../../controllers/payment.controller";
-
-import { authMiddleware } from "../../middlewares/auth.middleware";
+import { authMiddleware } from "../middlewares/auth.middleware";
+import { createPaymentOrder, paymentWebhookHandler, verifyPayment } from "../controllers/payment.controller";
 
 const router = Router();
 

@@ -1,7 +1,7 @@
 import { Types } from "mongoose";
-import { cartRepository } from "./cart.repository";
-import { Menu } from "../../models/menu.model";
-import { AppError } from "../../utils/AppError";
+import { cartRepository } from "../repositories/cart.repository";
+import { Menu } from "../models/menu.model";
+import { AppError } from "../utils/AppError";
 
 export class CartService {
   private cartRepo = new cartRepository();

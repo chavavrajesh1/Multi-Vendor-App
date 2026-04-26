@@ -1,6 +1,5 @@
-import { AppError } from "../../utils/AppError";
-import { Order, OrderStatus } from "../../models/order.model";
-
+import { AppError } from "../utils/AppError";
+import { Order, OrderStatus } from "../models/order.model";
 
 export class OrderTrackingService {
 

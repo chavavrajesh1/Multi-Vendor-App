@@ -1,7 +1,6 @@
 import { NextFunction, Response } from "express";
-import { AuthRequest } from "../../types/express";
-import { createRestaurantService, deleteRestaurantService, getAllRestaurantsService, getVendorRestaurantsService, updateRestaurantService } from "./restaurant.service";
-
+import { createRestaurantService, getVendorRestaurantsService, updateRestaurantService, deleteRestaurantService, getAllRestaurantsService } from "../services/restaurant.service";
+import { AuthRequest } from "../types/express";
 
 export const createRestaurant = async (
   req: AuthRequest,

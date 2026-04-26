@@ -1,10 +1,13 @@
 import { Router } from "express";
-import { authMiddleware } from "../../middlewares/auth.middleware";
-import { roleMiddleware } from "../../middlewares/role.middleware";
-import { createProduct,deleteProduct,getAllProducts,getMyProducts,getProductsByRestaurant, updateProduct } from "../../controllers/product.controller";
-import { upload } from "../../middlewares/multer.middleware";
+import { authMiddleware } from "../middlewares/auth.middleware";
+import { roleMiddleware } from "../middlewares/role.middleware";
+import { createProduct, getAllProducts, getProductsByRestaurant, updateProduct, deleteProduct, getMyProducts } 
+from "../controllers/product.controller";
+import multer from "multer";
+
 
 const router = Router();
+const upload = multer();
 
 // vendor creates a product
 router.post(
@@ -39,4 +42,4 @@ router.put(
 
 router.delete("/:id", authMiddleware, deleteProduct);
 
-export default router;
+export default router

@@ -2,17 +2,17 @@ import express, { Application } from "express";
 import cors from "cors";
 import path from "node:path";
 
-import authRoutes from "./modules/auth/auth.routes";
-import adminRoutes from "./modules/admin/admin.routes";
+import authRoutes from "./routes/auth.routes";
+import adminRoutes from "./routes/admin.routes";
 import restaurantRoutes from "./routes/restaurant.routes";
-import orderRoutes from "./modules/order/order.routes";
-import productRoutes from "./modules/product/product.routes";
+import orderRoutes from "./routes/order.routes";
+import productRoutes from "./routes/product.routes";
 import vendorProductRoutes from "./routes/vendor.routes";
-import paymentRoutes from "./modules/payment/payment.routes";
+import paymentRoutes from "./routes/payment.routes";
 import { paymentWebhookHandler } from "./controllers/payment.controller";
 import { errorHandler } from "./middlewares/error.middleware";
 import checkoutRoutes from "./routes/checkout.routes";
-import orderTrackingRoutes from "./modules/orderTracking/orderTracking.routes";
+import orderTrackingRoutes from "./routes/orderTracking.routes";
 import couponRoutes from "./routes/coupon.routes";
 import reviewRoutes from "./routes/review.routes";
 import notificationRoutes from "./routes/notification.routes";
@@ -29,8 +29,7 @@ const app: Application = express();
 ========================================= */
 app.use(
   cors({
-    origin: ["http://localhost:5173",
-    "http://10.136.167.136:5173"],
+    origin: "http://localhost:5173",
     credentials: true,
   })
 );

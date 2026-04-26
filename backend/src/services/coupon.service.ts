@@ -1,4 +1,5 @@
-import Coupon from "../../models/coupon.model";
+import { Types } from "mongoose";
+import  Coupon  from "../models/coupon.model";
 
 export class CouponService {
 

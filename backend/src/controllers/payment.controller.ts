@@ -1,9 +1,9 @@
 import { Response } from "express";
 import crypto from "crypto";
-import { handlePaymentWebhookService } from "../modules/payment/payment.service";
-import { verifyPaymentService } from "../modules/order/order.service"; // దీన్ని ఇంపోర్ట్ చేయండి
 import { AuthRequest } from "../types/express";
 import { razorpay } from "../utils/razorpay";
+import { verifyPaymentService } from "../services/order.service";
+import { handlePaymentWebhookService } from "../services/payment.service";
 
 /* ======================================================
     1. CREATE RAZORPAY ORDER

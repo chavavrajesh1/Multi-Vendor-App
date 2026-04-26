@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { Response } from "express";
 import { AuthRequest } from "../types/express";
-import { createOrderService } from "../modules/order/order.service";
+import { createOrderService } from "../services/order.service";
 import { asyncHandler } from "../utils/asyncHandler";
 import { Order, OrderStatus } from "../models/order.model";
 import { Restaurant } from "../models/restaurant.model";

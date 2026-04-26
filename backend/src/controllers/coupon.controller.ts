@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { CouponService } from "./coupon.service";
-import { success } from "zod";
+import { CouponService } from "../services/coupon.service";
 
 const couponService = new CouponService();
 

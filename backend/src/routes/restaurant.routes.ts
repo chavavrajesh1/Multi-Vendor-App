@@ -3,7 +3,8 @@ import { authMiddleware } from "../middlewares/auth.middleware";
 import { roleMiddleware } from "../middlewares/role.middleware";
 import { createRestaurantSchema } from "../validations/restaurant.validation";
 import { validate } from "../middlewares/validate.middleware";
-import { createRestaurant, deleteRestaurant, getAllRestaurants, getVendorRestaurants, updateRestaurant } from "./restaurant.controller";
+import { createRestaurant, getAllRestaurants, getVendorRestaurants, updateRestaurant, deleteRestaurant } from "../controllers/restaurant.controller";
+
 
 const router = Router();
 

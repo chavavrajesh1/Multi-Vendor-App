@@ -3,7 +3,7 @@ import axios from "axios";
 // 1. Axios Instance క్రియేట్ చేయడం
 const API = axios.create({
   // మీ కంప్యూటర్ IP అడ్రస్ మరియు బ్యాకెండ్ పోర్ట్ (5000)
-  baseURL: "http://10.136.167.136:5000/api",
+  baseURL: "http://localhost:5000/api",
   
   // కుకీలు మరియు సెషన్స్ పంపడానికి ఇది చాలా ముఖ్యం
   withCredentials: true,

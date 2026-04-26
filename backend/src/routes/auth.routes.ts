@@ -1,7 +1,6 @@
 import { Router } from "express";
-import { register, login } from "../../controllers/auth.controller";
-import { authLimiter } from "../../middlewares/rateLimiter.middleware";
-
+import { authLimiter } from "../middlewares/rateLimiter.middleware";
+import { login, register } from "../controllers/auth.controller";
 const router = Router();
 
 router.post("/register", authLimiter, register);

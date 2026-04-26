@@ -1,6 +1,6 @@
 import { Response, Request, NextFunction } from "express";
-import { ReviewService } from "./review.service";
-import { AuthRequest } from "../../types/express";
+import { ReviewService } from "../services/review.service";
+import { AuthRequest } from "../types/express";
 
 const reviewService = new ReviewService();
 

@@ -1,7 +1,7 @@
-import { AppError } from "../../utils/AppError";
-import { Order, OrderStatus } from "../../models/order.model";
-import { Delivery, DeliveryStatus } from "../../models/delivery.model";
-
+import { Types } from "mongoose";
+import { Delivery, DeliveryStatus } from "../models/delivery.model";
+import { Order, OrderStatus } from "../models/order.model";
+import { AppError } from "../utils/AppError";
 
 export class DeliveryService {
 

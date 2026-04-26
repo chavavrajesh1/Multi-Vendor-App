@@ -1,7 +1,7 @@
 import mongoose, { Types } from "mongoose";
-import { Order, PaymentStatus } from "../../models/order.model";
-import { Payment, PaymentRecordStatus } from "../../models/payment.model";
-import { AppError } from "../../utils/AppError";
+import { AppError } from "../utils/AppError";
+import { Order, OrderStatus } from "../models/order.model";
+import { Payment, PaymentMethod, PaymentStatus } from "../models/payment.model";
 
 export const handlePaymentWebhookService = async (event: any) => {
 
@@ -42,7 +42,7 @@ export const handlePaymentWebhookService = async (event: any) => {
        PREVENT DUPLICATE WEBHOOK UPDATE
     ---------------------------------- */
 
-    if (payment.status === PaymentRecordStatus.SUCCESS) {
+    if (payment.status === PaymentStatus.PAID) {
       await session.commitTransaction();
       session.endSession();
       return;
@@ -54,7 +54,7 @@ export const handlePaymentWebhookService = async (event: any) => {
 
     if (paymentStatus === "success") {
 
-      payment.status = PaymentRecordStatus.SUCCESS;
+      payment.status = PaymentStatus.PAID;
 
       order.paymentStatus = PaymentStatus.PAID;
 
@@ -71,7 +71,7 @@ export const handlePaymentWebhookService = async (event: any) => {
 
     if (paymentStatus === "failed") {
 
-      payment.status = PaymentRecordStatus.FAILED;
+      payment.status = PaymentStatus.FAILED;
 
       order.paymentStatus = PaymentStatus.FAILED;
 

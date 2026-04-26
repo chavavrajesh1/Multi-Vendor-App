@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { CheckOutService } from "./checkout.service";
 import { Types } from "mongoose";
+import { CheckOutService } from "../services/checkout.service";
 
 const checkoutService = new CheckOutService();
 

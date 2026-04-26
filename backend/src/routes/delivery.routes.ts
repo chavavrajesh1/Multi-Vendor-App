@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { assignDeliveryController, updateDeliveryStatusController } from "./delivery.controller";
+import { assignDeliveryController, updateDeliveryStatusController } from "../controllers/delivery.controller";
 
 const router = Router();
 

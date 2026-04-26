@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import { DeliveryService } from "./delivery.service";
+import { DeliveryService } from "../services/delivery.service";
 
 const deliveryService = new DeliveryService();
 

@@ -1,6 +1,6 @@
 import { NextFunction, Response } from "express";
-import { NotificationService } from "./notification.service";
-import { AuthRequest } from "../../types/express";
+import { AuthRequest } from "../types/express";
+import { NotificationService } from "../services/notification.service";
 import mongoose from "mongoose";
 
 const notificationService = new NotificationService();

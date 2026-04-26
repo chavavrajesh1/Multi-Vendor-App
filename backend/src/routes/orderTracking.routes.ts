@@ -1,8 +1,7 @@
 import { Router } from "express";
-import { authMiddleware } from "../../middlewares/auth.middleware";
-import { getOrderStatusController, updateOrderStatusController } from "./orderTracking.controller";
-import { roleMiddleware } from "../../middlewares/role.middleware";
-
+import { authMiddleware } from "../middlewares/auth.middleware";
+import { roleMiddleware } from "../middlewares/role.middleware";
+import { getOrderStatusController, updateOrderStatusController } from "../controllers/orderTracking.controller";
 
 const router = Router();
 

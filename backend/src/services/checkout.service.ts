@@ -1,12 +1,8 @@
 import { Types } from "mongoose";
-import { AppError } from "../../utils/AppError";
-import { cartRepository } from "../cart/cart.repository";
-import { Order, OrderStatus, PaymentStatus } from "../../models/order.model";
-import {
-  Payment,
-  PaymentRecordStatus,
-  PaymentMethod,
-} from "../../models/payment.model";
+import { cartRepository } from "../repositories/cart.repository";
+import { Order, OrderStatus } from "../models/order.model";
+import { Payment, PaymentMethod, PaymentStatus } from "../models/payment.model";
+import { AppError } from "../utils/AppError";
 
 export class CheckOutService {
   private cartRepo = new cartRepository();
@@ -46,7 +42,7 @@ export class CheckOutService {
         user: customerId,
         amount: finalAmount,
         method: PaymentMethod.COD,
-        status: PaymentRecordStatus.PENDING,
+        status: PaymentStatus.PENDING,
       });
 
       console.log("🔥 PAYMENT CREATED:", payment);

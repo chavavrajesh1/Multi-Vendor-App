@@ -1,6 +1,5 @@
-import { User } from "../../models/user.model";
-import { Restaurant } from "../../models/restaurant.model";
-
+import { User } from "../models/user.model";
+import { Restaurant } from "../models/restaurant.model";
 
 export const createRestaurantService = async (
     vendorId: string,

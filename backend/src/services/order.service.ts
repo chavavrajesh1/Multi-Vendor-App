@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import productModel from "../../models/product.model";
-import { Order, OrderStatus } from "../../models/order.model";
-import { Restaurant } from "../../models/restaurant.model";
-import { Payment, PaymentMethod, PaymentStatus } from "../../models/payment.model";
-import { AppError } from "../../utils/AppError";
+import { AppError } from "../utils/AppError";
+import { Order, OrderStatus } from "../models/order.model";
+import { Payment, PaymentMethod, PaymentStatus } from "../models/payment.model";
+import { Restaurant } from "../models/restaurant.model";
+import  productModel  from "../models/product.model";
 
 /* ======================================================
     1. CREATE ORDER (Supports COD, UPI, CARD)

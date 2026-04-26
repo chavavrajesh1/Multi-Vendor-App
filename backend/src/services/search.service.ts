@@ -1,6 +1,5 @@
-import { Menu } from "../../models/menu.model";
-import { Restaurant } from "../../models/restaurant.model";
-
+import { Menu } from "../models/menu.model";
+import { Restaurant } from "../models/restaurant.model";
 
 export class SearchService {
 

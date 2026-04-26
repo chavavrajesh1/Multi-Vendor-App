@@ -1,5 +1,5 @@
-import { AppError } from "../../utils/AppError";
-import { Inventory } from "../../models/inventory.model";
+import { Inventory } from "../models/inventory.model";
+import { AppError } from "../utils/AppError";
 
 export class InventoryService {
 

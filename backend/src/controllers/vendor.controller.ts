@@ -1,9 +1,9 @@
 import { Response, NextFunction } from "express";
-import { AuthRequest } from "../../types/express";
-import { Restaurant } from "../../models/restaurant.model";
-import mongoose from "mongoose";
-import { Order, OrderStatus } from "../../models/order.model";
-import { AppError } from "../../utils/AppError";
+import { createRestaurantService, getVendorRestaurantsService, updateRestaurantService, deleteRestaurantService } from "../services/restaurant.service";
+import { AuthRequest } from "../types/express";
+import { AppError } from "../utils/AppError";
+import { Restaurant } from "../models/restaurant.model";
+import { Order, OrderStatus } from "../models/order.model";
 
 /* =====================================================
     ADD NEW RESTAURANT

@@ -1,7 +1,8 @@
 import { Response, NextFunction } from "express";
-import { MenuService } from "./menu.service";
-import { AuthRequest } from "../../types/express";
-import { AppError } from "../../utils/AppError";
+import { MenuService } from "../services/menu.service";
+import { AuthRequest } from "../types/express";
+import { AppError } from "../utils/AppError";
+
 
 const menuService = new MenuService();
 

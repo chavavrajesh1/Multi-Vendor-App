@@ -1,11 +1,5 @@
 import { Router } from "express";
-import { 
-  getVendorDashboardStats, 
-  getVendorOrders, 
-  getVendorRevenueAnalytics,
-  addRestaurant,
-  getMyRestaurants
-} from "./vendor.controller";
+import { addRestaurant, getVendorOrders, getVendorDashboardStats, getVendorRevenueAnalytics, getMyRestaurants } from "../controllers/vendor.controller";
 import { authMiddleware } from "../middlewares/auth.middleware";
 import { roleMiddleware } from "../middlewares/role.middleware";
 import { updateOrderStatus } from "../controllers/order.controller";

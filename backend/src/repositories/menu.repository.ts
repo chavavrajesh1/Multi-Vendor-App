@@ -1,5 +1,5 @@
 import { Types } from "mongoose";
-import { Menu } from "../../models/menu.model";
+import { Menu } from "../models/menu.model";
 
 export class MenuRepository {
     async create(data: any) {
