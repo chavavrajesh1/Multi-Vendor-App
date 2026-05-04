@@ -1,30 +1,51 @@
 import { Router } from "express";
-import { addRestaurant, getVendorOrders, getVendorDashboardStats, getVendorRevenueAnalytics, getMyRestaurants } from "../controllers/vendor.controller";
+import { 
+  addRestaurant, 
+  getVendorOrders, 
+  getVendorDashboardStats, 
+  getVendorProducts, 
+  getMyRestaurants 
+} from "../controllers/vendor.controller";
 import { authMiddleware } from "../middlewares/auth.middleware";
 import { roleMiddleware } from "../middlewares/role.middleware";
 import { updateOrderStatus } from "../controllers/order.controller";
 
 const router = Router();
 
-// 1. Add Restaurant
-router.post("/add-restaurant", authMiddleware, roleMiddleware(["vendor"]), addRestaurant);
+/**
+ * వెండర్ కి సంబంధించిన అన్ని రూట్స్ కి 
+ * Authentication మరియు Role Check అవసరం.
+ * అందుకే ఒకేసారి 'vendorAuth' మిడిల్‌వేర్ వాడుతున్నాం.
+ */
+const vendorAuth = [authMiddleware, roleMiddleware(["vendor"])];
 
-// 2. Vendor Orders - Dashboard లో వస్తున్న డేటానే ఇక్కడ కూడా వస్తుంది
-router.get(
-  "/orders", 
-  authMiddleware, 
-  roleMiddleware(["vendor"]), 
-  getVendorOrders
-);
+/* =====================================================
+    VENDOR BUSINESS & DASHBOARD ROUTES
+===================================================== */
 
-// 3. Dashboard Stats
-router.get("/dashboard-stats", authMiddleware, roleMiddleware(["vendor"]), getVendorDashboardStats);
+// 1. Dashboard Stats (Revenue, Order counts, etc.)
+router.get("/dashboard-stats", vendorAuth, getVendorDashboardStats);
 
-// 4. Update Status
-router.patch("/orders/:id/status", authMiddleware, roleMiddleware(["vendor"]), updateOrderStatus);
+// 2. Vendor Orders List
+router.get("/orders", vendorAuth, getVendorOrders);
 
-// 5. Analytics & Restaurants
-router.get("/revenue-analytics", authMiddleware, roleMiddleware(["vendor"]), getVendorRevenueAnalytics);
-router.get("/my-restaurants", authMiddleware, roleMiddleware(["vendor"]), getMyRestaurants);
+// 3. Vendor Products List (దీని వల్లే మీకు 404 ఎర్రర్ వచ్చింది)
+router.get("/products", vendorAuth, getVendorProducts);
+
+// 4. Get Vendor's Registered Shops/Restaurants
+router.get("/my-restaurants", vendorAuth, getMyRestaurants);
+
+// 5. Add or Update Restaurant Profile
+router.post("/add-restaurant", vendorAuth, addRestaurant);
+
+// 6. Shop Settings (Add Restaurant కి ఇది Alias లాగా పనిచేస్తుంది)
+router.post("/shop-settings", vendorAuth, addRestaurant);
+
+/* =====================================================
+    ORDER MANAGEMENT ROUTES
+===================================================== */
+
+// 7. Update Status of an Order (Pending to Confirmed, etc.)
+router.patch("/orders/:id/status", vendorAuth, updateOrderStatus);
 
 export default router;

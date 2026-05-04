@@ -1,141 +1,86 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { getAllProducts } from "../../api/product.api";
+import React, { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllProducts } from "../../redux/slices/productSlice";
+import type { RootState, AppDispatch } from "../../redux/store";
 import { addItemToCart } from "../../utils/cart";
 import ProductCard from "../../components/product/ProductCard";
+import Navbar from "../../components/layout/Navbar";
 import toast from "react-hot-toast";
 
 const CustomerHomePage = () => {
-  const [products, setProducts] = useState<any[]>([]); // const [search, setSearch] = useState(""); // ❌ Search ని తీసివేశాం
-  const [loading, setLoading] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const dispatch = useDispatch<AppDispatch>();
+  const [searchParams] = useSearchParams();
+  
+  // URL నుండి కేటగిరీని తీసుకోవడం (Default: All)
+  const categoryFilter = searchParams.get("category") || "All";
 
-  const fetchProducts = useCallback(async () => {
-    try {
-      const res = await getAllProducts();
-      setProducts(res.data?.data || []);
-    } catch (error) {
-      console.error("Failed to fetch products");
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  // Redux నుండి డేటా తీసుకోవడం
+  const { items, loading } = useSelector((state: RootState) => state.products);
 
   useEffect(() => {
-    fetchProducts();
-    // ⚠️ Note: Interval ని ఇక్కడ అలాగే ఉంచాను, కానీ మీరు కావాలంటే 30000 (30s) కి పెంచుకోండి.
-    const interval = setInterval(() => {
-      fetchProducts();
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [fetchProducts]);
+    // ప్రోడక్ట్స్ లేకపోతేనే API కాల్ చేయడం (Optimization)
+    if (items.length === 0) {
+      dispatch(fetchAllProducts());
+    }
+  }, [dispatch, items.length]);
 
   const handleAddToCart = (product: any, qty: number) => {
     addItemToCart(product, qty);
-    toast.success(`${product.name} added to cart!`);
-  }; // Filter Logic based ONLY on Category (Search Logic Removed)
+    toast.success(`${product.name} added to cart!`, {
+      style: { borderRadius: '15px', background: '#334155', color: '#fff' },
+    });
+  };
 
-  const filteredProducts = products.filter((p) => {
-    const matchesCategory =
-      selectedCategory === "All" || p.category === selectedCategory;
-    return matchesCategory; // ✅ కేవలం కేటగిరీ మాత్రమే చెక్ చేస్తున్నాం
+  // ✅ REDUX డేటాను ఫిల్టర్ చేయడం
+  const filteredProducts = items.filter((p: any) => {
+    if (categoryFilter === "All") return true;
+
+    // కేటగిరీ ఆబ్జెక్ట్ అయితే పేరుని, లేదంటే డైరెక్ట్ స్ట్రింగ్‌ని చెక్ చేస్తుంది
+    const pCategory = typeof p.category === 'object' ? p.category.name : p.category;
+    
+    return pCategory?.toLowerCase() === categoryFilter.toLowerCase();
   });
 
-  const categories = [
-    { id: "All", label: "All Items" },
-    { id: "veg-pickle", label: "Veg Pickles" },
-    { id: "non-veg-pickle", label: "Non-Veg" },
-    { id: "sweets", label: "Sweets" },
-    { id: "hots", label: "Savories" },
-  ];
-
   return (
-    <div
-      className="bg-white min-h-screen"
-      style={{ fontFamily: "'Montserrat', sans-serif" }}
-    >
-                 {" "}
-      {/* ❌ WELCOME SECTION & SEARCH BAR పూర్తిగా తొలగించబడ్డాయి */}     {" "}
-      {/* పాత కోడ్‌లో Welcome సెక్షన్ కోసం వాడిన ప్యాడింగ్/మార్జిన్ సర్దుబాటు చేశాను */}
-           {" "}
-      <div className="max-w-7xl mx-auto p-8 pt-12">
-                        {/* CATEGORY TABS - Direct Start */}       {" "}
-        <div className="flex gap-3 overflow-x-auto pb-6 mb-10 no-scrollbar">
-                   {" "}
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setSelectedCategory(cat.id)}
-              className={`px-8 py-3 rounded-full text-xs font-black uppercase tracking-widest transition-all whitespace-nowrap border-2 ${
-                selectedCategory === cat.id
-                  ? "bg-orange-600 border-orange-600 text-white shadow-lg shadow-orange-900/20"
-                  : "bg-white border-slate-100 text-slate-500 hover:border-orange-200"
-              }`}
-            >
-                            {cat.label}           {" "}
-            </button>
-          ))}
-                 {" "}
-        </div>
-                {/* PRODUCT HEADER */}       {" "}
-        <div className="flex justify-between items-end mb-8">
-                   {" "}
+    <div className="bg-slate-950 min-h-screen text-white">
+      <Navbar />
+
+      <div className="max-w-7xl mx-auto px-6 py-12">
+        
+        {/* HEADER */}
+        <div className="flex justify-between items-end mb-12 border-l-4 border-orange-600 pl-6">
           <div>
-                       {" "}
-            <h2 className="text-2xl font-black text-slate-900 tracking-tighter">
-              Popular Choices
+            <h2 className="text-3xl font-black text-white tracking-tighter uppercase italic">
+              {categoryFilter} <span className="text-orange-500">Store</span>
             </h2>
-                       {" "}
-            <div className="h-1.5 w-12 bg-orange-500 mt-2 rounded-full"></div> 
-                   {" "}
-          </div>
-                   {" "}
-          <span className="text-slate-400 text-xs font-bold uppercase tracking-widest bg-slate-50 px-4 py-2 rounded-lg">
-                        {filteredProducts.length} Items found          {" "}
-          </span>
-                 {" "}
-        </div>
-                {/* GRID CONTENT */}       {" "}
-        {loading && products.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20">
-                       {" "}
-            <div className="w-10 h-10 border-4 border-orange-100 border-t-orange-600 rounded-full animate-spin mb-4"></div>
-                       {" "}
-            <p className="text-slate-400 text-sm font-bold animate-pulse">
-              Refilling the jars...
+            <p className="text-slate-500 text-sm font-medium mt-1">
+              Fresh homemade pickles delivered to your door.
             </p>
-                     {" "}
+          </div>
+          <span className="text-slate-500 text-[10px] font-black uppercase tracking-widest bg-slate-900 border border-slate-800 px-4 py-2 rounded-xl">
+            {filteredProducts.length} Products
+          </span>
+        </div>
+
+        {/* MAIN CONTENT */}
+        {loading ? (
+          <div className="flex flex-col items-center justify-center py-32 text-center">
+            <div className="w-10 h-10 border-2 border-slate-800 border-t-orange-500 rounded-full animate-spin mb-4"></div>
+            <p className="text-slate-600 text-[10px] font-black uppercase tracking-widest">Updating Menu...</p>
           </div>
         ) : filteredProducts.length === 0 ? (
-          <div className="text-center py-20 bg-slate-50 rounded-[2rem] border-2 border-dashed border-slate-200">
-                       {" "}
-            <p className="text-slate-400 font-bold mb-4">
-              We couldn't find any items in this category.
-            </p>
-                       {" "}
-            <button // ❌ Search Logic Removed, కేవలం కేటగిరీని "All" కి సెట్ చేస్తున్నాం
-              onClick={() => setSelectedCategory("All")}
-              className="text-orange-600 font-black text-xs uppercase tracking-widest hover:underline"
-            >
-                            Show all items            {" "}
-            </button>
-                     {" "}
+          <div className="text-center py-32 bg-slate-900/20 rounded-[3rem] border border-slate-900 border-dashed">
+            <p className="text-slate-500 font-bold uppercase text-xs">No items found in "{categoryFilter}".</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                       {" "}
-            {filteredProducts.map((item) => (
-              <ProductCard
-                key={item._id}
-                product={item}
-                addToCart={handleAddToCart}
-              />
+            {filteredProducts.map((item: any) => (
+              <ProductCard key={item._id} product={item} addToCart={handleAddToCart} />
             ))}
-                     {" "}
           </div>
         )}
-             {" "}
       </div>
-               {" "}
     </div>
   );
 };

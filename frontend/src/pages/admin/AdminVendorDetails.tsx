@@ -4,7 +4,7 @@ import Navbar from "../../components/layout/Navbar";
 import API from "../../api/axios";
 import toast from "react-hot-toast";
 
-const VendorDetails = () => {
+const AdminVendorDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [vendor, setVendor] = useState<any>(null);
@@ -127,4 +127,4 @@ const VendorDetails = () => {
   );
 };
 
-export default VendorDetails;
+export default AdminVendorDetails;

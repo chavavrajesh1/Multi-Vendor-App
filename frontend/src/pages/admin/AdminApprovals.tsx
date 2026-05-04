@@ -12,7 +12,7 @@ interface Vendor {
   createdAt?: string;
 }
 
-const Approvals = () => {
+const AdminApprovals = () => {
   const [vendors, setVendors] = useState<Vendor[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -149,4 +149,4 @@ const Approvals = () => {
   );
 };
 
-export default Approvals;
+export default AdminApprovals;

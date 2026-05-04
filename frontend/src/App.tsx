@@ -10,20 +10,23 @@ import Cart from "./pages/customer/CartPage";
 import CheckoutPage from "./pages/customer/CheckoutPage"; 
 import Orders from "./pages/orders/Orders";
 import { CustomerOrderConfirmation } from "./pages/customer/CustomerOrderConfirmation";
+import Profile from "./pages/customer/Profile"; // ✅ Profile Import
 
 // Vendor Pages
 import VendorDashboard from "./pages/vendor/VendorDashboard";
 import VendorOrdersPage from "./pages/vendor/VendorOrdersPage";
 import VendorProductsPage from "./pages/vendor/VendorProductsPage";
 import AddProductPage from "./pages/vendor/AddProductPage";
+import EditProductPage from "./pages/vendor/EditProductPage"; 
 import AddRestaurant from "./pages/vendor/AddRestaurant";
 import DeliveryUpdatePage from "./pages/vendor/DeliveryUpdatePage";
 
 // Admin Pages
-import AdminDashboard from "./pages/admin/Dashboard";
-import Approvals from "./pages/admin/Approvals";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import Approvals from "./pages/admin/AdminApprovals";
 import AdminVendorList from "./pages/admin/AdminVendorList";
-import VendorDetails from "./pages/admin/VendorDetails";
+import VendorDetails from "./pages/admin/AdminVendorDetails";
+import AdminAddCategory from "./pages/admin/AdminAddCategory";
 
 // Public Pages
 import PublicHome from "./pages/public/PublicHome";
@@ -34,23 +37,24 @@ import RoleRoute from "./routes/RoleRoute";
 import MainLayout from "./components/layout/MainLayout";
 import PublicLayout from "./components/layout/PublicLayout";
 import VendorLayout from "./components/layout/VendorLayout";
+import AdminLayout from "./components/layout/AdminLayout";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         
-        {/* 1. PUBLIC ROUTES */}
+        {/* 1. PUBLIC ROUTES (లాగిన్ అవసరం లేనివి) */}
         <Route element={<PublicLayout />}>
           <Route path="/" element={<PublicHome />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           
-          {/* డెలివరీ అప్‌డేట్ లింక్ - లాగిన్ అవసరం లేకుండా యాక్సెస్ చేయవచ్చు */}
+          {/* డెలివరీ అప్‌డేట్ లింక్ */}
           <Route path="/delivery-update/:orderId" element={<DeliveryUpdatePage />} />
         </Route>
 
-        {/* 2. CUSTOMER PROTECTED ROUTES */}
+        {/* 2. PROTECTED ROUTES (లాగిన్ అయిన అందరికీ - MainLayout తో) */}
         <Route
           element={
             <ProtectedRoute>
@@ -58,7 +62,10 @@ function App() {
             </ProtectedRoute>
           }
         >
-          {/* Default Customer Home */}
+          {/* ✅ Profile Route - ఇక్కడ ఉంచడం వల్ల అందరికీ యాక్సెస్ ఉంటుంది */}
+          <Route path="/profile" element={<Profile />} />
+
+          {/* Customer Specific Routes */}
           <Route
             path="/home"
             element={
@@ -86,7 +93,6 @@ function App() {
             }
           />
 
-          {/* కస్టమర్ ఆర్డర్స్ లిస్ట్ & ట్రాకింగ్ */}
           <Route
             path="/my-orders"
             element={
@@ -96,7 +102,6 @@ function App() {
             }
           />
 
-          {/* ఎర్రర్ ఫిక్స్: /orders అని టైప్ చేసినా అది /my-orders కి రీడైరెక్ట్ అవుతుంది */}
           <Route path="/orders" element={<Navigate to="/my-orders" replace />} />
 
           <Route
@@ -125,6 +130,7 @@ function App() {
           <Route path="add-restaurant" element={<AddRestaurant />} />
           <Route path="products" element={<VendorProductsPage />} />
           <Route path="add-product" element={<AddProductPage />} />
+          <Route path="edit-product/:id" element={<EditProductPage />} /> 
           <Route path="orders" element={<VendorOrdersPage />} />
         </Route>
 
@@ -134,7 +140,7 @@ function App() {
           element={
             <ProtectedRoute>
               <RoleRoute role="admin">
-                <MainLayout /> 
+                <AdminLayout /> 
               </RoleRoute>
             </ProtectedRoute>
           }
@@ -143,9 +149,10 @@ function App() {
           <Route path="approvals" element={<Approvals />} />
           <Route path="vendors" element={<AdminVendorList/>}/>
           <Route path="vendor/:id" element={<VendorDetails/>}/>
+          <Route path="add-category" element={<AdminAddCategory/>}/>
         </Route>
 
-        {/* 5. 404 - పేజీ దొరకనప్పుడు హోమ్ కి పంపడం */}
+        {/* 5. 404 - REDIRECT TO HOME */}
         <Route path="*" element={<Navigate to="/" replace />} />
 
       </Routes>
